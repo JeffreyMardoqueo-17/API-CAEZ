@@ -1,7 +1,7 @@
 CREATE DATABASE CAEZGestorPagosAlumnosBD
 GO
 
-USE CAEZGestorPagosAlumnosBD ---´Para poner en uso la BD
+USE CAEZGestorPagosAlumnosBD ---ï¿½Para poner en uso la BD
 
 ---TABLA Turno
 CREATE TABLE Turno(
@@ -79,6 +79,5 @@ Apellido VARCHAR (50) NOT NULL,
 IdGrado TINYINT NOT NULL FOREIGN KEY REFERENCES Grado(Id),
 IdTipoDoc TINYINT NOT NULL FOREIGN KEY REFERENCES TipoDocumento(Id),
 NumeroDocumento VARCHAR(50) NOT NULL,
-IdEncargado
+IdEncargado BIGINT NOT NULL FOREIGN KEY REFERENCES Encargado(Id)
 )
-
