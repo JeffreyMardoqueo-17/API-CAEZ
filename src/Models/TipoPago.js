@@ -1,9 +1,8 @@
 // modelo de TipoPago
-class TipoPago {
-  constructor(id, nombre) {
-    this.id = id;
-    this.nombre = nombre;
-  }
+class TipoPago { //creacion de la clase
+    constructor(id, nombre) { //contructor => parametros 
+        this.id = id; //propiedades de las clases
+        this.nombre = nombre; //propiedades de las clases
+    }
 }
-
-module.exports = TipoPago;
+module.exports = TipoPago; //exportacion de los modulos (clases)

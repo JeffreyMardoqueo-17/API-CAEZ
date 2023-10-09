@@ -1,9 +1,9 @@
 // modelo de Materia
-class Materia {
-  constructor(id, nombre) {
-    this.id = id;
-    this.nombre = nombre;
+class Materia { //creacion de la clase
+  constructor(id, nombre) { //contructor => parametros 
+    this.id = id; //propiedades de las clases
+    this.nombre = nombre; //propiedades de las clases
   }
 }
 
-module.exports = Materia;
+module.exports = Materia; //exportacion de las clases

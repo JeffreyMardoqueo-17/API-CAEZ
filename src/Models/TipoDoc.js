@@ -1,9 +1,9 @@
 // Tipo documento
-class TipoDocumento {
-  constructor(id, nombre) {
-    this.id = id;
-    this.nombre = nombre;
+class TipoDocumento {//creacion de la clase
+  constructor(id, nombre) { //contructor => parametros 
+    this.id = id; //propiedades de las clases
+    this.nombre = nombre; //propiedades de las clases
   }
 }
 
-module.exports = TipoDocumento;
+module.exports = TipoDocumento; //exportacion de la clase
