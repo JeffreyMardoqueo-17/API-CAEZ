@@ -215,7 +215,7 @@ BEGIN
 END;
 EXEC SPMostrarTipoPago;
 
-----------------------------------------------------------Tipo documento 
+----------------------------------------------------------Tipo documento
 ------Insertar
 CREATE PROCEDURE SPInsertarTipoDoc
     @Nombre VARCHAR(80)
