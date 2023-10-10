@@ -1,24 +1,12 @@
-// models/user.js
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('database', 'username', 'password', {
-  host: 'localhost',
-  dialect: 'mysql', // Puedes cambiar esto según tu DBMS
-});
+import express from "express";
+//exportar variable de entorno del puerto
+import config from "./config";
 
-const User = sequelize.define('User', {
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  // Otros campos y configuraciones de modelo
-});
+const app = express();//lo inicializo 
 
-module.exports = User;
+let port;
+//settings
+//configurar el puerto
+app.set('port', config.port) //si existe la variable port, utilizalo sino utiliza el puerto 3000
+
+export default app;
