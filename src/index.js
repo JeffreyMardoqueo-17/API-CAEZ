@@ -1,4 +1,6 @@
 import app from "./app"
-let port = 6000;
+import './database/conection'
+
+let port;
 app.listen(app.get('port'))
 console.log("Servidor en el puerto", app.get('port'))

@@ -1,8 +1,7 @@
-import {config} from 'dotenv' //esta funcoin config lo que hara es leer las variables de entorno que eten definidas
+import {config} from 'dotenv' //esta funcoin config lo que hara es leer las variables de entorno que esten definidas
 
 config();
-console.log(process.env.hello)
 //va a guardar variables
 export default{
-    port: 4000
+    port: process.env.PORT || 4000 //si en las variables de entorno existe el PORT utilizalo sino usa el 4000
 }
