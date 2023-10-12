@@ -1,6 +1,5 @@
 //importamos el modulo SQL 
 import sql from 'mssql'
-
 //configurando la base de datos
 const dbSettings = {
     user: 'Jeffrey', //usuario de la base de datos
