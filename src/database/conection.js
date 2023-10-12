@@ -6,15 +6,19 @@ const dbSettings = {
     password: 'jeffrey20068f',
     server: 'localhost',
     database: 'CAEZGestorPagosAlumnosBD',
-    options : {
-        encrypt : true,
+    options: {
+        encrypt: true,
         trustServerCertificate: true
     },
 }
 //conecion asincrona, se intentara conectar atraves de una especie de promesa
-async function GetConnection() { //funcion para conectarse a la base de datos
-    const pool = await sql.connect(dbSettings)//conectarse a la BD atraves de esos parametros => traera una coneccion
-    const result = await pool.request().query('SELECT * FROM Grado') //=> con la coneccion hare una peticion a la BD
-    console.log(result)
+export async function GetConnection() { //funcion para conectarse a la base de datos
+    try {
+        const pool = await sql.connect(dbSettings)//conectarse a la BD atraves de esos parametros => traera una coneccion
+        // const result = await pool.request().query('SELECT * FROM Grado') //=> con la coneccion hare una peticion a la BD
+        // console.log(result)
+        return pool;
+    } catch (error) {
+        console.log(`El error de la conccion con la BD esta en: ${error}`)
+    }
 }
-GetConnection();
