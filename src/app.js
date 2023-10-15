@@ -12,6 +12,10 @@ let port;
 //settings
 //configurar el puerto
 app.set('port', config.port) //si existe la variable port, utilizalo sino utiliza el puerto 3000
+
+//middlowers
+app.use(express.json())
+app.use(express.urlencoded({extends: false})) //esto es para resivir datos de formularios
 app.use(DocumentosRoutes) //Aqui le digo : "app usa Documentos ruta"
 export default app;
 //18:21

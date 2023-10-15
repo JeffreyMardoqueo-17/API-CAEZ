@@ -7,7 +7,7 @@ const router = Router();
 //get para obtener
 router.get('/Documents', GetDocumentos); 
 //get para obtener un producto por ID
-router.post('/Documentos', CreateNewDocumento)
+router.post('/Documents', CreateNewDocumento)
 //post para crear
 router.get('/Documentos', )
 //para eliminar

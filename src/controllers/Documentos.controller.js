@@ -15,6 +15,9 @@ export const GetDocumentos = async (req, res) => {
     }
 };
 //No se que es lo que pasa  
-export const CreateNewDocumento = (req, res)=>{
+export const CreateNewDocumento = async (req, res)=>{
+
+    const {name, description} = await req.body
+    console.log(name, description)
     res.json('new document')
 }
