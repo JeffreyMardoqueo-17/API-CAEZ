@@ -3,7 +3,7 @@ import express from "express";
 import config from "./config";
 //importamos ruta documentos
 import DocumentosRoutes from './routers/Documentos.routes.js'
-
+import { json } from "express";
 
 
 const app = express();//lo inicializo 
@@ -14,6 +14,7 @@ let port;
 app.set('port', config.port) //si existe la variable port, utilizalo sino utiliza el puerto 3000
 
 //middlowers
+app.use(express.json())
 app.use(express.json())
 app.use(express.urlencoded({extends: false})) //esto es para resivir datos de formularios
 app.use(DocumentosRoutes) //Aqui le digo : "app usa Documentos ruta"

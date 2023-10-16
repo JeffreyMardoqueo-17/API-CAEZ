@@ -2,7 +2,7 @@
 GET  {{API}}
 ###
 POST {{API}}
-Content-Type: application/json
+Content-Type: 'application/json'
 {
     "name": "Jeffrey",
     "description": "Es todo good con el"

@@ -1,6 +1,5 @@
-//Exporto la coneccion 
-import { GetConnection } from "../database/conection";
 
+import { GetConnection } from "../database/conection";
 
 export const GetDocumentos = async (req, res) => {
 
