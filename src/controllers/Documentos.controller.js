@@ -7,8 +7,10 @@ export const GetDocumentos = async (req, res) => {
     try {
         const pool = await GetConnection();
         const result = await pool.request().query('SELECT * FROM TipoDocumento') //consulta
-        console.log(result)//muestro por cosola el result
+        console.log(result)//muestro por cosola el resultado
+        res.send('todo bien, resive esto, esto es el metodo Get y esta GOOOD ¡Buena we!')
         res.json(result.recordset)
+        // console.log("hola como andas")
     } catch (error) {
         console.log(`Hay errores y es:${error}`);
     }
@@ -23,7 +25,9 @@ export const CreateNewDocumento = async (req, res) => {
         } else if (name == null) {
             return res.status(400).json()
         }
+        console.log(name, description)
         res.json(`New Document ${name} ${description}`)
+        res.send(`New Document, estamos en el metodo post <br><br> ${name} ${description}`)
     } catch (error) {
         console.log(`Los errores estan en: ${error}`)
     }
