@@ -1,5 +1,5 @@
-CREATE DATABASE CAEZGestorPagosAlumnosBD
 GO
+CREATE DATABASE CAEZGestorPagosAlumnosBD
 
 USE CAEZGestorPagosAlumnosBD ---�Para poner en uso la BD
 
