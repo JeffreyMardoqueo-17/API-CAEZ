@@ -1,6 +1,6 @@
 
 import { GetConnection } from "../database/conection";
-
+import sql from 'mssql';
 export const GetDocumentos = async (req, res) => {
 
     //consulta a la base de datos 
@@ -34,24 +34,22 @@ export const GetDocumentos = async (req, res) => {
 // }
 export const CreateNewDocumento = async (req, res) => {
     try {
-        const { name, id } = req.body;
+        const { name } = req.body; //esto es para recirbir ddel DOM
 
-        if (!name || !id) {
-            return res.status(400).json({ msg: 'Por favor, llena todos los campos requeridos (nombre y ID).' });
+        if (!name) {
+            return res.status(400).json({ msg: 'Por favor, llena todos los campos requeridos (nombre).'});
         }
 
-        // Aquí puedes realizar la lógica para guardar el documento en tu base de datos.
-        // Asumiendo que tienes un modelo de documento en tu base de datos, puedes hacer algo como esto:
-
-        const nuevoDocumento = new Documento({
-            name: name,
-            id: id,
-        });
-
-        // Guarda el nuevo documento en la base de datos
-        await nuevoDocumento.save();
-
-        res.status(201).json({ msg: 'Nuevo documento creado con éxito.' });
+        const pool = await GetConnection();
+        // Define los parámetros para el SP
+        const request = new sql.Request();
+        const result = await pool.request.input('Nombre', sql.VarChar(80), name);
+        // Ejecuta el SP
+        await request.execute('SPInsertarTipoDoc');
+        res.send('todo bien, resive esto, esto es el metodo Get y esta GOOOD ¡Buena we!')
+        res.json(result.recordset)
+        console.log(result)
+        res.status(201).json({ msg: 'Nuevo tipo de documento creado con éxito.' });
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ msg: 'Se produjo un error al procesar la solicitud' });
