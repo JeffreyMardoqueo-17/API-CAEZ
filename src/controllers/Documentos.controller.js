@@ -55,3 +55,5 @@ export const CreateNewDocumento = async (req, res) => {
         res.status(500).json({ msg: 'Se produjo un error al procesar la solicitud' });
     }
 }
+//metodo de modificar
+//metodo de eliminar
