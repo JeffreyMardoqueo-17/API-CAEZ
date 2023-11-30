@@ -1,11 +1,13 @@
 
 import { GetConnection } from "../database/conection";
 import sql from 'mssql';
+
+const pool = await GetConnection();
 export const GetDocumentos = async (req, res) => {
 
     //consulta a la base de datos 
     try {
-        const pool = await GetConnection();
+        // const pool = await GetConnection();
         const result = await pool.request().query('SELECT * FROM TipoDocumento') //consulta
         console.log(result)//muestro por cosola el resultado
         res.send('todo bien, resive esto, esto es el metodo Get y esta GOOOD ¡Buena we!')
@@ -23,7 +25,7 @@ export const CreateNewDocumento = async (req, res) => {
             return res.status(400).json({ msg: 'Por favor, llena todos los campos requeridos (nombre).'});
         }
 
-        const pool = await GetConnection();
+        // const pool = await GetConnection();
         // Define los parámetros para el SP
         const request = new sql.Request();
         const result = await pool.request.input('Nombre', sql.VarChar(80), name);
