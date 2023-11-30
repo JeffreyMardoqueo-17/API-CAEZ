@@ -2,7 +2,7 @@
 import { GetConnection } from "../database/conection";
 import sql from 'mssql';
 
-const pool = await GetConnection();
+const pool = await GetConnection(); //coneccion 
 export const GetDocumentos = async (req, res) => {
 
     //consulta a la base de datos 
@@ -17,6 +17,12 @@ export const GetDocumentos = async (req, res) => {
         console.log(`Hay errores y es:${error}`);
     }
 };
+
+//---Tabla Tipo Documento
+// CREATE TABLE TipoDocumento(
+// Id TINYINT NOT NULL PRIMARY KEY IDENTITY (1,1),
+// Nombre VARCHAR(80) NOT NULL,
+// )
 export const CreateNewDocumento = async (req, res) => {
     try {
         const { name } = req.body; //esto es para recirbir ddel DOM
@@ -24,11 +30,9 @@ export const CreateNewDocumento = async (req, res) => {
         if (!name) {
             return res.status(400).json({ msg: 'Por favor, llena todos los campos requeridos (nombre).'});
         }
-
-        // const pool = await GetConnection();
         // Define los parámetros para el SP
         const request = new sql.Request();
-        const result = await pool.request.input('Nombre', sql.VarChar(80), name);
+        const result = await pool.request().input('Nombre', sql.VarChar(80), name);
         // Ejecuta el SP
         await request.execute('SPInsertarTipoDoc');
         res.send('todo bien, resive esto, esto es el metodo Get y esta GOOOD ¡Buena we!')
