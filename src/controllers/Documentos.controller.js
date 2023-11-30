@@ -27,19 +27,20 @@ export const CreateNewDocumento = async (req, res) => {
         }
 
         const pool = await GetConnection();
-        const requestCheck = new sql.Request();
-        const checkQuery = `SELECT COUNT(*) AS count FROM TuTabla WHERE Nombre = @Nombre`; // Replace 'TuTabla' with your actual table name
-
-        const checkResult = await requestCheck.input('Nombre', sql.VarChar(80), name).query(checkQuery);
+        
+        // Check if the document type already exists
+        const checkQuery = `SELECT * FROM TipoDocumento WHERE Nombre = @Nombre`;
+        const checkResult = await pool.request().input('Nombre', sql.VarChar(80), name).query(checkQuery);
 
         if (checkResult.recordset[0].count > 0) {
             return res.status(400).json({ msg: 'El tipo de documento ya existe.' });
         }
 
-        const request = new sql.Request();
-        const result = await request.input('Nombre', sql.VarChar(80), name).execute('SPInsertarTipoDoc');
+        // Insert the new document type
+        const insertQuery = 'EXEC SPInsertarTipoDoc @Nombre';
+        const insertResult = await pool.request().input('Nombre', sql.VarChar(80), name).query(insertQuery);
 
-        res.json({ msg: 'Nuevo tipo de documento creado con éxito.', result: result.recordset });
+        res.json({ msg: 'Nuevo tipo de documento creado con éxito.', result: insertResult.recordset });
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ msg: 'Se produjo un error al procesar la solicitud' });
