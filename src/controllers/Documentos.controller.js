@@ -2,7 +2,7 @@
 import { GetConnection } from "../database/conection";
 import sql from 'mssql';
 
-//==================================Obtener documento=========
+//==================================Obtener documento==================
 
 export const GetDocumentos = async (req, res) => {
     //consulta a la base de datos 
