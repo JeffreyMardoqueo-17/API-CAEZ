@@ -5,6 +5,7 @@ import config from "./config";
 import DocumentosRoutes from './routers/Documentos.routes.js'
 //rutas de Tipo Pagod
 import TipoPagoRoutes from './routers/TipoPago.routes'
+
 import { json } from "express";
 
 
