@@ -235,7 +235,7 @@ BEGIN
     DELETE FROM TipoDocumento
     WHERE Id = @Id;
 END;
-EXEC SPEliminarTipoDoc @Id = 6; 
+EXEC SPEliminarTipoDoc @Id = 4; 
 ------MODIFICAR
 CREATE PROCEDURE SPModificarTipoDoc
     @Id TINYINT,
