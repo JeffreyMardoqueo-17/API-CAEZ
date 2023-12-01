@@ -31,8 +31,6 @@ export const CreateNewDocumento = async (req, res) => {
         if (checkResult.recordset[0].count > 0) {
             return res.status(400).json({ msg: 'El tipo de documento ya existe.' });
         }
-
-        // Insert the new document type
         const insertQuery = 'EXEC SPInsertarTipoDoc @Nombre';
         const insertResult = await pool.request().input('Nombre', sql.VarChar(80), name).query(insertQuery);
 
