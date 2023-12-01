@@ -3,7 +3,7 @@ import {GetTipoPago, POSTNewTypePayment} from '../controllers/TipoPago.controlle
 
 const router = Router();
 //creamos la ruta para traer
-router.get('/TipePago', GetTipoPago) //la ruta mas la funcion  asincrona
-router.get(`/TypepaymentCreate`,POSTNewTypePayment )
+router.get('/TipoPago', GetTipoPago) //la ruta mas la funcion  asincrona
+router.get('/TipoPago',POSTNewTypePayment )
 
 export default router;//exportamos el router
