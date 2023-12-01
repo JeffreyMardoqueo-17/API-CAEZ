@@ -2,6 +2,7 @@
 import { GetConnection } from "../database/conection";
 import sql from 'mssql';
 
+//metodo para obtener los tipo de pago ==========================================================
 export const GetTipoPago = async (req, res) =>{
     /*Esto consultaea a la BD tipo: Select * FROM TipoPago */
     try{
@@ -12,5 +13,14 @@ export const GetTipoPago = async (req, res) =>{
         res.json(result.recordset)
     } catch (error){
         console.log(`Valio, si hay errore y es en: ${error}`)
+    }
+}
+//=========================METODO POST =================
+
+export const CreateNewTypePayment = async (req, res) => {
+    try {
+        
+    } catch (error) {
+        
     }
 }
