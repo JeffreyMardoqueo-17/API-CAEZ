@@ -21,14 +21,10 @@ export const GetDocumentos = async (req, res) => {
 export const CreateNewDocumento = async (req, res) => {
     try {
         const { name } = req.body;
-
         if (!name) {
             return res.status(400).json({ msg: 'Por favor, llena todos los campos requeridos (nombre).' });
         }
-
         const pool = await GetConnection();
-        
-        // Check if the document type already exists
         const checkQuery = `SELECT * FROM TipoDocumento WHERE Nombre = @Nombre`;
         const checkResult = await pool.request().input('Nombre', sql.VarChar(80), name).query(checkQuery);
 
