@@ -25,18 +25,18 @@ export const CreateNewDocumento = async (req, res) => {
             return res.status(400).json({ msg: 'Por favor, llena todos los campos requeridos (nombre).' });
         }
         const pool = await GetConnection();
-        const checkQuery = `SELECT * FROM TipoDocumento WHERE Nombre = @Nombre`;
+        const checkQuery = `SELECT * FROM TipoDocumento WHERE Nombre = @name`;
         const checkResult = await pool.request().input('Nombre', sql.VarChar(80), name).query(checkQuery);
 
         if (checkResult.recordset[0].count > 0) {
             return res.status(400).json({ msg: 'El tipo de documento ya existe.' });
         }
-        const insertQuery = 'EXEC SPInsertarTipoDoc @Nombre';
+        const insertQuery = 'EXEC SPInsertarTipoDoc name';
         const insertResult = await pool.request().input('Nombre', sql.VarChar(80), name).query(insertQuery);
 
         res.json({ msg: 'Nuevo tipo de documento creado con éxito.', result: insertResult.recordset });
     } catch (error) {
-        console.error('Error:', error);
+        console.log('Error este esta en: :', error);
         res.status(500).json({ msg: 'Se produjo un error al procesar la solicitud' });
     }
 };

@@ -18,6 +18,7 @@ export async function GetConnection() { //funcion para conectarse a la base de d
         // const result = await pool.request().query('SELECT * FROM Grado') //=> con la coneccion hare una peticion a la BD
         // console.log(result)
         return pool;
+
     } catch (error) {
         console.log(`El error de la conccion con la BD esta en: ${error}`)
     }

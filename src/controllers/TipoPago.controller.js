@@ -32,7 +32,7 @@ export const POSTNewTypePayment = async (req, res) => {
         if (checkResult.recordset[0].count > 0) {
             return res.status(400).json({ msg: 'El tipo de pago ya existe.' });
         }
-        const insertQuery = 'EXEC SPInsertarTipoPago @Nombre';
+        const insertQuery = 'EXEC SPInsertarTipoPago Nombre = @Nombre';
         const insertResult = await pool.request().input('Nombre', sql.VarChar(80), name).query(insertQuery);
 
         res.json({ msg: 'Nuevo tipo de documento creado con éxito.', result: insertResult.recordset });

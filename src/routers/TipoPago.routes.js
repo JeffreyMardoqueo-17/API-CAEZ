@@ -4,6 +4,6 @@ import {GetTipoPago, POSTNewTypePayment} from '../controllers/TipoPago.controlle
 const router = Router();
 //creamos la ruta para traer
 router.get('/TipoPago', GetTipoPago) //la ruta mas la funcion  asincrona
-router.get('/TipoPago',POSTNewTypePayment )
+router.get('/TipoPago',POSTNewTypePayment ) //crear un nuevo tipo de pago
 
 export default router;//exportamos el router

@@ -5,7 +5,8 @@ import config from "./config";
 import DocumentosRoutes from './routers/Documentos.routes.js'
 //rutas de Tipo Pagod
 import TipoPagoRoutes from './routers/TipoPago.routes'
-
+//Cargo
+import CargoRoutes from './routers/Cargo.routes'
 import { json } from "express";
 
 
@@ -20,6 +21,5 @@ app.set('port', config.port) //si existe la variable port, utilizalo sino utiliz
 app.use(express.json())
 app.use(express.json())
 app.use(express.urlencoded({extends: false})) //esto es para resivir datos de formularios
-app.use(DocumentosRoutes, TipoPagoRoutes) //Aqui le digo : "app usa Documentos ruta"
+app.use(DocumentosRoutes, TipoPagoRoutes,CargoRoutes) //Aqui le digo : "app usa Documentos ruta"
 export default app;
-//18:21

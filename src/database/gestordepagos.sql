@@ -3,6 +3,7 @@ CREATE DATABASE CAEZGestorPagosAlumnosBD
 
 USE CAEZGestorPagosAlumnosBD ---�Para poner en uso la BD
 
+
 ---TABLA Turno
 CREATE TABLE Turno(
 Id TINYINT NOT NULL PRIMARY KEY IDENTITY (1,1),
@@ -15,6 +16,7 @@ Id TINYINT NOT NULL PRIMARY KEY IDENTITY (1,1),
 Nombre VARCHAR(50) NOT NULL,
 )
 GO
+
 ---Tabla Tipo Documento
 CREATE TABLE TipoDocumento(
 Id TINYINT NOT NULL PRIMARY KEY IDENTITY (1,1),
@@ -45,6 +47,7 @@ Id TINYINT NOT NULL PRIMARY KEY IDENTITY (1,1),
 Nombre VARCHAR(80) NOT NULL,
 )
 GO
+
 CREATE TABLE Multa(
 Id TINYINT NOT NULL PRIMARY KEY IDENTITY (1,1),
 Nombre VARCHAR	(50) NOT NULL,
@@ -88,6 +91,49 @@ CREATE TABLE Factura(
 
 ----------SP CRUD DE LAS TABLAS SIMPLES
 ----------------------------------------------------------TURNO
+----------------------------------------------------------Cargo
+------Insertar
+ALTER PROCEDURE InsertarCargo
+    @Nombre VARCHAR(80)
+AS
+BEGIN
+    -- Insertar un nuevo turno en la tabla "Turno"
+    INSERT INTO Cargo(Nombre)
+    VALUES (@Nombre);
+END;
+EXEC InsertarCargo @Nombre = 'Administrador';
+SELECT * FROM Cargo
+-----Eliminar
+CREATE PROCEDURE EliminarCargo
+    @Id TINYINT
+AS
+BEGIN
+    -- Eliminar un turno de la tabla "Turno" por su Id
+    DELETE FROM Cargo
+    WHERE Id = @Id;
+END;
+
+------MODIFICAR
+CREATE PROCEDURE SPModificarCargo
+    @Id TINYINT,
+    @NuevoNombre VARCHAR(80)
+AS
+BEGIN
+    -- Modificar un turno en la tabla "Turno" por su Id
+    UPDATE Cargo
+    SET Nombre = @NuevoNombre
+    WHERE Id = @Id;
+END;
+EXEC SPModificarTurno @Id = 2, @NuevoNombre = 'Turno de mañana'; -- Cambia 1 por el Id del turno que deseas modificar y 'Nuevo Turno' por el nuevo nombre
+-----MOSTRAR
+CREATE PROCEDURE SPMostrarCargos	
+AS
+BEGIN
+    -- Seleccionar todos los datos de la tabla "Turno"
+    SELECT * FROM Cargo;
+END;
+EXEC SPMostrarCargos;
+
 ------Insertar
 CREATE PROCEDURE InsertarTurno
     @Nombre VARCHAR(80)
