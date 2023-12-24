@@ -9,7 +9,6 @@ import TipoPagoRoutes from './routers/TipoPago.routes'
 import CargoRoutes from './routers/Cargo.routes'
 import { json } from "express";
 
-
 const app = express();//lo inicializo 
 
 let port;
