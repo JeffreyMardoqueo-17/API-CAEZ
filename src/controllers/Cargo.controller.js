@@ -14,8 +14,6 @@ export const GetCargo = async (req, res) => {
         res.status(500).send(`Valió weeee, si hay errores y es en: ${error}`); // También puedes enviar un mensaje de error al cliente
     }
 };
-
-///metodo post, para crear un nuevo cargo
 export const PostCargo = async (req, res) => {
 
     //constantes, que se pasaran del body
