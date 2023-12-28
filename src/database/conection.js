@@ -23,3 +23,4 @@ export async function GetConnection() { //funcion para conectarse a la base de d
         console.log(`El error de la conccion con la BD esta en: ${error}`)
     }
 }
+export {sql}
