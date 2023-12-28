@@ -1,34 +1,35 @@
-
 import { GetConnection, sql } from "../database/conection";
-import { json } from "express";
 
-export const GetGrados = async (req, res)=>{
+export const GetGrados = async (req, res) => {
     try {
         const pool = await GetConnection();
-        const result = await pool.request().query('SELECT * FROM Grado')//esta linea de codigo hara una consulta y traera los datos de la tabla Grado
-        console.log(result)//mostrare el resultado
-        res.send(`Si funciona el de Grados mi rey: ${(result.recordset).json}`);
+        const result = await pool.request().query('SELECT * FROM Grado');
+        console.log(result.recordset);
+        res.status(200).json(result.recordset);
     } catch (error) {
-        console.log(`Esto no sirve has algo bueno: ${error}`)
+        console.error(`Error al obtener grados: ${error}`);
+        res.status(500).json({ error: 'Error al obtener la lista de grados' });
     }
-}
+};
 
-export const NewGrado = async (req, res)=>{
+//NEW GRADO 
+export const NewGrado = async (req, res) => {
     try {
-        const name = req.body;
-        if(name == null){
-            return res.status(400).json({msg:'BAD REQUEST. por favor llena los datos guevooon'})
+        const { nombre } = req.body;
+
+        if (!nombre) {
+            return res.status(400).json({ msg: 'BAD REQUEST. Por favor llena los datos correctamente' });
         }
-        //GET CONNECITON
+
         const pool = await GetConnection();
         await pool
             .request()
-            .input("name", sql.VarChar, name)
-            .query("INSERT INTO Grado (name) VALUES (@name)")
+            .input("Nombre", sql.VarChar, nombre)
+            .execute("SPInsertarGrado");
 
-        res.json({name})
+        res.status(201).json({ message: 'Nuevo grado agregado correctamente' });
     } catch (error) {
-        res.status(500)
-        console.log(`PAPUUU TENEMOS ERRORES, SON ESTOS: ${error}`)
+        console.error(`Error al agregar nuevo grado: ${error.message}`);
+        res.status(500).json({ error: 'Error al insertar el registro en la base de datos' });
     }
-}
+};
