@@ -17,17 +17,23 @@ export const NewGrado = async (req, res) => {
     try {
         const { nombre } = req.body;
 
-        if (!nombre) {
-            return res.status(400).json({ msg: 'BAD REQUEST. Por favor llena los datos correctamente' });
+        // Validar si 'nombre' es un string no vacío
+        if (typeof nombre !== 'string' || nombre.trim() === '') {
+            return res.status(400).json({ msg: 'BAD REQUEST. El campo "nombre" es inválido o está vacío.' });
         }
 
         const pool = await GetConnection();
-        await pool
+        const result = await pool
             .request()
-            .input("Nombre", sql.VarChar, nombre)
+            .input("Nombre", sql.VarChar(50), nombre)
             .execute("SPInsertarGrado");
 
-        res.status(201).json({ message: 'Nuevo grado agregado correctamente' });
+        // Verificar si se afectaron filas en la inserción
+        if (result.rowsAffected && result.rowsAffected[0] > 0) {
+            res.status(201).json({ message: 'Nuevo grado agregado correctamente' });
+        } else {
+            res.status(500).json({ error: 'Error al insertar el registro en la base de datos' });
+        }
     } catch (error) {
         console.error(`Error al agregar nuevo grado: ${error.message}`);
         res.status(500).json({ error: 'Error al insertar el registro en la base de datos' });
