@@ -9,7 +9,6 @@ import TipoPagoRoutes from './routers/TipoPago.routes'
 import CargoRoutes from './routers/Cargo.routes'
 //Grados 
 import GradoRoutes from './routers/Grado.routes'
-import { json } from "express";
 
 const app = express();//lo inicializo 
 

@@ -1,5 +1,6 @@
+// Grado.controller.js
 import { GetConnection, sql } from "../database/conection";
-
+import config from '../path/to/config';
 export const GetGrados = async (req, res) => {
     try {
         const pool = await GetConnection();
@@ -12,21 +13,33 @@ export const GetGrados = async (req, res) => {
     }
 };
 
-//NEW GRADO 
+// Nuevo Grado
 export const NewGrado = async (req, res) => {
     try {
         const { nombre } = req.body;
-
+        String.nombre;
         // Validar si 'nombre' es un string no vacío
         if (typeof nombre !== 'string' || nombre.trim() === '') {
             return res.status(400).json({ msg: 'BAD REQUEST. El campo "nombre" es inválido o está vacío.' });
         }
 
+
         const pool = await GetConnection();
+
+        // Validar la existencia del procedimiento almacenado
+        const existsProcedure = await pool
+            .request()
+            .input('ProcedureName', sql.VarChar(50), 'SPInsertarGrado')
+            .query('SELECT OBJECT_ID(@ProcedureName) AS ProcedureExists');
+
+        if (!existsProcedure.recordset[0].ProcedureExists) {
+            return res.status(500).json({ error: 'Error: El procedimiento almacenado no existe.' });
+        }
+
         const result = await pool
             .request()
-            .input("Nombre", sql.VarChar(50), nombre)
-            .execute("SPInsertarGrado");
+            .input('Nombre', sql.VarChar(50), nombre)
+            .execute('SPInsertarGrado');
 
         // Verificar si se afectaron filas en la inserción
         if (result.rowsAffected && result.rowsAffected[0] > 0) {
