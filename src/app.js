@@ -9,10 +9,12 @@ import TipoPagoRoutes from './routers/TipoPago.routes'
 import CargoRoutes from './routers/Cargo.routes'
 //Grados 
 import GradoRoutes from './routers/Grado.routes'
+//direcciones
+import DireccionesRouter from './routers/Direcciones.routes.js'
 import { json } from "express";
 
-const app = express();//lo inicializo 
 
+const app = express();//lo inicializo 
 let port;
 //settings
 //configurar el puerto
@@ -22,5 +24,8 @@ app.set('port', config.port) //si existe la variable port, utilizalo sino utiliz
 app.use(express.json())
 app.use(express.json())
 app.use(express.urlencoded({extends: false})) //esto es para resivir datos de formularios
-app.use(DocumentosRoutes, TipoPagoRoutes,CargoRoutes, GradoRoutes) //Aqui le digo : "app usa Documentos ruta"
+app.use(DocumentosRoutes, TipoPagoRoutes,CargoRoutes, GradoRoutes, DireccionesRouter) //Aqui le digo : "app usa Documentos ruta"
 export default app;
+
+
+//draw folder structure

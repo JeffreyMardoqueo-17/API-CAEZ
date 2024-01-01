@@ -4,14 +4,11 @@ import { GetConnection, sql } from "../database/conection";
 export const GetGrados = async (req, res) => {
     try {
         const pool = await GetConnection();
-
         // Realizar la consulta SQL
         const result = await pool.request().query('SELECT * FROM Grado');
-
         // Almacenar los resultados en una variable para mayor claridad
         const grados = result.recordset;
         console.log(grados);
-
         // Devolver la lista de grados como respuesta
         res.status(200).json(grados);
     } catch (error) {
