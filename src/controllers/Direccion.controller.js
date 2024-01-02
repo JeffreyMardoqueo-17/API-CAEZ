@@ -19,20 +19,24 @@ export const GetDirecciones = async (req, res) => {
         res.status(500).json({ error: 'Error al obtener la lista de grados' });
     }
 }
-
-//post
+// /post
 export const PostDireccion = async (req, res) => {
-//aqui estoy
-    //constantes, que se pasaran del body
-    const { nwDireccion } = req.body;
+    // Constantes, que se pasarán del body
+    const nwDireccion = req.body;
     try {
         if (nwDireccion == null) {
-            return res.status(400).json({ msg: "no funciona, por avor llene todos los campos" })
+            return res.status(400).json({ msg: "No funciona, por favor llene todos los campos" });
         }
+
         const pool = await GetConnection();
-        await pool.request().input("cargo", sql.VarChar, 'PRUEBA').query('INSERT INTO Direccion(nwDireccion) VALUES (@nwDireccion)');
-        console.log(req)
+        // Llama al stored procedure con el valor de nwDireccion
+        await pool.request().input("Nombre", sql.VarChar, nwDireccion).execute('SPInsertarDireccion');
+
+        // Envía una respuesta exitosa
+        return res.status(200).json({ msg: "Dirección insertada correctamente" });
     } catch (error) {
-        console.log(`Èste es el error ${error}`)
+        console.log(`Este es el error: ${error}`);
+        // Maneja el error y devuelve una respuesta apropiada
+        return res.status(500).json({ msg: "Error al insertar la dirección en la base de datos" });
     }
-}
+};

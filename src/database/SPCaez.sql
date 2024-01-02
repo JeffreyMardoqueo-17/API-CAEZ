@@ -1,14 +1,21 @@
 --STAR PROCEDURE
 
 ------Insertar
-CREATE PROCEDURE SPInsertarDireccion
+ALTER PROCEDURE SPInsertarDireccion
     @Nombre VARCHAR(80)
 AS
 BEGIN
-    -- Insertar un nuevo turno en la tabla "Turno"
-    INSERT INTO Direccion(Nombre)
-    VALUES (@Nombre);
+    BEGIN TRY
+        -- Insertar un nuevo turno en la tabla "Turno"
+        INSERT INTO Direccion(Nombre)
+        VALUES (@Nombre);
+    END TRY
+    BEGIN CATCH
+        -- Imprimir información detallada sobre el error
+        PRINT ERROR_MESSAGE();
+    END CATCH
 END;
+
 EXEC SPInsertarDireccion @Nombre = 'CAS. Los Vasquez Canton El Zarzal, Santo Domingo de Guzman, Sonsonate';
 SELECT * FROM Direccion
 -----Eliminar
