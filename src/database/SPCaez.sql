@@ -48,3 +48,4 @@ BEGIN
     SELECT * FROM Direccion;
 END;
 EXEC SPMostrarCargos;
+select * FROM Direccion
