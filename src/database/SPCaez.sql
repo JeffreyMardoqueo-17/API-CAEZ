@@ -49,3 +49,11 @@ BEGIN
 END;
 EXEC SPMostrarCargos;
 select * FROM Direccion
+
+CREATE PROCEDURE SPBuscarDireccionPorId
+    @Id TINYINT
+AS
+BEGIN
+    -- Seleccionar la dirección por su ID
+    SELECT * FROM Direccion WHERE Id = @Id;
+END;

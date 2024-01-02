@@ -6,19 +6,23 @@ import { GetConnection, sql } from '../database/conection'
 export const GetDirecciones = async (req, res) => {
     try {
         const pool = await GetConnection();
-        // Realizar la consulta SQL
-        const result = await pool.request().query('SELECT * FROM Direccion');
-        // Almacenar los resultados en una variable para mayor claridad
-        const direcciones = result.recordset; //para que sirve el record set,  investigaro...
+
+        // Llamar al stored procedure SPMostrarDireccion
+        const result = await pool.request().execute('SPMostrarDireccion');
+
+        // El resultado estará disponible en result.recordset
+        const direcciones = result.recordset;
+
         console.log(direcciones);
-        // Devolver la lista de grados como respuesta
+
+        // Devolver la lista de direcciones como respuesta
         res.status(200).json(direcciones);
     } catch (error) {
-        // Manejar cualquier error durante la obtención de grados
-        console.error(`Error al obtener grados: ${error.message}`);
-        res.status(500).json({ error: 'Error al obtener la lista de grados' });
+        // Manejar cualquier error durante la obtención de direcciones
+        console.error(`Error al obtener direcciones: ${error.message}`);
+        res.status(500).json({ error: 'Error al obtener la lista de direcciones' });
     }
-}
+};
 // /post
 export const PostDireccion = async (req, res) => {
     // Constantes, que se pasarán del body
@@ -65,7 +69,6 @@ export const UpdateDireccion = async (req, res) => {
     }
 };
 
-
 //DELETE
 export const DeleteDireccion = async (req, res) => {
     // Intenta obtener el ID de la dirección desde el cuerpo de la solicitud
@@ -93,5 +96,37 @@ export const DeleteDireccion = async (req, res) => {
         console.log(`Este es el error: ${error}`);
         // Maneja el error y devuelve una respuesta apropiada
         return res.status(500).json({ msg: "Error al eliminar la dirección en la base de datos" });
+    }
+};
+
+//BUSCAR POR ID
+export const GetDireccionPorId = async (req, res) => {
+    try {
+        const direccionId = req.body.id; // Obtén el ID desde el cuerpo JSON
+
+        // Verifica si el ID es válido (puedes agregar más validaciones según sea necesario)
+        if (!direccionId || isNaN(direccionId)) {
+            return res.status(400).json({ msg: "ID de dirección no válido" });
+        }
+
+        const pool = await GetConnection();
+
+        // Llama al stored procedure SPBuscarDireccionPorId
+        const result = await pool.request().input("Id", sql.TinyInt, direccionId).execute('SPBuscarDireccionPorId');
+
+        // El resultado estará disponible en result.recordset
+        const direccionEncontrada = result.recordset;
+
+        // Verifica si se encontró alguna dirección con el ID proporcionado
+        if (direccionEncontrada.length === 0) {
+            return res.status(404).json({ msg: "Dirección no encontrada" });
+        }
+
+        // Devolver la dirección encontrada como respuesta
+        res.status(200).json(direccionEncontrada[0]); // Supongo que solo debería haber una dirección con el ID dado
+    } catch (error) {
+        // Manejar cualquier error durante la búsqueda de dirección por ID
+        console.error(`Error al buscar dirección por ID: ${error.message}`);
+        res.status(500).json({ error: 'Error al buscar la dirección por ID' });
     }
 };
