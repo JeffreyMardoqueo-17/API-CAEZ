@@ -11,7 +11,7 @@ BEGIN
         VALUES (@Nombre);
     END TRY
     BEGIN CATCH
-        -- Imprimir información detallada sobre el error
+        -- Imprimir informaciï¿½n detallada sobre el error
         PRINT ERROR_MESSAGE();
     END CATCH
 END;
@@ -39,7 +39,7 @@ BEGIN
     SET Nombre = @NuevoNombre
     WHERE Id = @Id;
 END;
-EXEC SPModificarTurno @Id = 2, @NuevoNombre = 'Turno de mañana'; -- Cambia 1 por el Id del turno que deseas modificar y 'Nuevo Turno' por el nuevo nombre
+EXEC SPModificarTurno @Id = 2, @NuevoNombre = 'Turno de maï¿½ana'; -- Cambia 1 por el Id del turno que deseas modificar y 'Nuevo Turno' por el nuevo nombre
 -----MOSTRAR
 CREATE PROCEDURE SPMostrarDireccion	
 AS
@@ -50,10 +50,23 @@ END;
 EXEC SPMostrarCargos;
 select * FROM Direccion
 
-CREATE PROCEDURE SPBuscarDireccionPorId
+	 PROCEDURE SPBuscarDireccionPorId
     @Id TINYINT
 AS
 BEGIN
-    -- Seleccionar la dirección por su ID
+    -- Seleccionar la direcciï¿½n por su ID
     SELECT * FROM Direccion WHERE Id = @Id;
 END;
+
+-- Valida si es que no esta el dato existente
+CREATE PROCEDURE SPVerificarExistenciaDireccion
+    @Nombre VARCHAR(255)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF EXISTS (SELECT 1 FROM Direccion WHERE Nombre = @Nombre)
+        SELECT 1 AS Existe;
+    ELSE
+        SELECT 0 AS Existe;
+END
