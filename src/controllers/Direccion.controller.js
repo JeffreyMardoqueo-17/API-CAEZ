@@ -73,23 +73,18 @@ export const UpdateDireccion = async (req, res) => {
 export const DeleteDireccion = async (req, res) => {
     // Intenta obtener el ID de la dirección desde el cuerpo de la solicitud
     let direccionId = req.body.id;
-
     // Si no se encuentra en el cuerpo, intenta obtenerlo de los parámetros de la URL
     if (!direccionId) {
         direccionId = req.params.id;
     }
-
     try {
         // Verifica si el ID es válido (puedes agregar más validaciones según sea necesario)
         if (!direccionId || isNaN(direccionId)) {
             return res.status(400).json({ msg: "ID de dirección no válido" });
         }
-
         const pool = await GetConnection();
-
         // Llama al stored procedure con el valor del ID
         await pool.request().input("Id", sql.TinyInt, direccionId).execute('SPEliminarDireccion');
-
         // Envía una respuesta exitosa
         return res.status(200).json({ msg: "Dirección eliminada correctamente" });
     } catch (error) {

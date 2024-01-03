@@ -50,23 +50,12 @@ END;
 EXEC SPMostrarCargos;
 select * FROM Direccion
 
-	 PROCEDURE SPBuscarDireccionPorId
-    @Id TINYINT
-AS
-BEGIN
-    -- Seleccionar la direcci�n por su ID
-    SELECT * FROM Direccion WHERE Id = @Id;
-END;
-
--- Valida si es que no esta el dato existente
 CREATE PROCEDURE SPVerificarExistenciaDireccion
     @Nombre VARCHAR(255)
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF EXISTS (SELECT 1 FROM Direccion WHERE Nombre = @Nombre)
-        SELECT 1 AS Existe;
-    ELSE
-        SELECT 0 AS Existe;
+    IF EXISTS (SELECT 1 FROM TuTablaDeDirecciones WHERE Nombre = @Nombre)
+        RAISEERROR('La dirección ya existe en la base de datos', 16, 1);
 END
